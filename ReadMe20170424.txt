@@ -1,0 +1,48 @@
+﻿一、NLPIR说明
+1.需要Data文件夹，可以从上级目录copy
+2、...\SentimentAnalysisPreprocess\file\ICTCLAS2015\Data\NLPIR.user	
+	该文件是许可文件，过期便不可使用，需要去网上下载最新的文件进行替换
+
+二、程序说明：
+1、preprocessing\dictionaryManage\DeleteEmptyNRepetition.java
+	该类的作用是对评论语料进行去空去重操作，便于进行后续处理
+2、preprocessing\chineseWordSegmentation.code\NlpirTest.java
+	该类的作用是对中文语料进行切词分词与词性标注。使用的是中科院的NLPIR工具
+3、preprocessing\stopWordsFilter\StopWordsFilter.java
+	该类的作用是对分词后的文本进行停用词过滤。主要针对两个方面进行过滤，第一是使用词性表，第二是使用哈工大的停用词表
+4、preprocessing\extractionOfFeatureWords\ExtractionOfFeatureWords.java
+	该类的作用是使用改进后的情感词典，对进行了上述处理的语料文本进行进一步的特征词提取，得到进行了特征词提取后的语料文本，和该语料对应的特征词典
+5、preprocessing\resultIntegration\ResultIntegration.java
+	该类的作用是对预处理后，每个类别下的评论语料进行合并，形成一个文件
+6、vectorization\TfIdf_Tf.java
+	该类的作用是对以上预处理后的文本，使用TfIdf算法进行向量化处理
+
+
+三、其它
+1、preprocessing\utility\FileOperate.java
+	该类的作用是进行通用的文件读写操作
+2、preprocessing\dictionaryManage\VocabularyGeneration.java
+	该类的作用是基于语料中的词,形成一个词汇表(词典)
+
+四、情感词典
+1、改进后的情感词典是以下面几个词典为基础的：
+（1）、台湾大学情感词典NTUSD
+	a)ntusd-negative.txt
+	b)ntusd-positive.txt
+（2）、知网情感分析用词语集(beta版)
+	a)负面评价词语（中文）.txt
+	b)负面情感词语（中文）.txt
+	c)正面评价词语（中文）.txt
+	d)正面情感词语（中文）.txt
+	e)程度级别词语（中文）.txt
+（3）、自己整理的网络流行词汇
+	a)total.txt
+（4）、自己上网搜集的否定词典
+	a)否定词语去重去空.txt
+
+2、词典还不够完善，所以导致一些特征词提取之后的文本为空，但这样的文本也给出了类别，加入到了模型进行训练
+
+五、存在的问题
+1、使用tfidf进行向量化时，该程序把《二》中处理后的文本进行向量化，即使是空的文本也进行了向量化操作，即全0。保持语料的平衡性。
+2、为了保持语料的平衡性，没有对原始语料进行去空去重
+

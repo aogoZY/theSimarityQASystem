@@ -1,0 +1,1 @@
+1、该语料是谭松波的酒店语料：ChnSentiCorp_Htl_del_4000
